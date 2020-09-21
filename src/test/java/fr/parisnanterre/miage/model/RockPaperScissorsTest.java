@@ -6,20 +6,51 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.testng.Assert.*;
 
 public class RockPaperScissorsTest {
 
     RockPaperScissors rps;
+    Player p1;
+    Player p2;
+    Player p3;
+    Player p4;
+    List<Play> l1;
+    List<Play> l2;
 
     @BeforeMethod
     public void setUp() {
+
         rps = new RockPaperScissors();
+        l1 = new ArrayList<Play>();
+        l2 = new ArrayList<Play>();
+        l1.add(Play.PAPER);
+        l1.add(Play.ROCK);
+        l1.add(Play.PAPER);
+
+        l2.add(Play.ROCK);
+        l2.add(Play.ROCK);
+        l2.add(Play.SCISSORS);
+
+        p1 = new Player("joueur1",l1);
+        p2 = new Player("Joueur2",l2);
+        p3 = new Player("joueur1");
+        p4 = new Player("Joueur2");
+
+
     }
 
     @AfterMethod
     public void tearDown() {
+
         rps = null;
+        p1 = null;
+        p2 = null;
+        p3 = null;
+        p4 = null;
     }
 
     @Parameters({"papier","pierre"})
@@ -65,6 +96,7 @@ public class RockPaperScissorsTest {
         };
 
     }
+
     @Test(dataProvider = "TieData")
     public void testWinPlay(Play p1, Play p2){
         assertEquals(rps.play(p1,p2),Result.WIN);
@@ -77,5 +109,8 @@ public class RockPaperScissorsTest {
     public void testLostPlay(Play p1, Play p2){
         assertEquals(rps.play(p1,p2),Result.LOST);
     }
+
+
+
 
 }
